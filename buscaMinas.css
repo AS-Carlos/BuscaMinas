@@ -1,4 +1,64 @@
 body{
+    font-size: 2em;
+}
 
-    
+header{
+    text-align: center;
+}
+
+.seccion-gen{
+    display: flex;
+    flex-direction: row;
+}
+
+/* LEFT SIDE */
+
+.seccion-izq{
+    display: flex;
+    flex-direction: column;  
+    flex-grow: 1;      
+
+}
+
+.panel-izq{
+    text-align: center;
+    display: flex;
+    flex-direction: row;    
+    padding-bottom: 20px;
+
+}
+
+.panel-izq > div {
+    margin: 0 10px;
+}
+
+.panel-izq-juego{
+    display: flex;
+}
+
+
+/* RIGHT SIDE */
+
+.seccion-der{
+    display: flex;
+    flex-direction: column; 
+    border-left: 2px solid #000;    
+
+}
+
+.panel-der{
+    flex-direction: row;
+    text-align: center;
+    margin: 5px;
+}
+
+.panel-der-op{
+    flex-direction: row;
+    text-align: center;
+    margin: 5px;
+}
+
+.panel-der-tabla{
+    text-align: center;
+    margin: 20px;
 }
