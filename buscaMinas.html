@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./buscaMinas.css">
     <script type="text/javascript" src="./buscaMinas.js"></script>
 </head>
-<body onload="dibujarPanel(), tamano()">
+<body onload="tamano()">
     <header>Busca Minas</header>
 
     <section class="seccion-gen">
@@ -43,12 +43,12 @@
                         <option value="grande">Grande</option>
                     </select>
                 
-                    <label name="dificultad" id="dificultad">Dificultad</label> 
+                    <label for="dificultad">Dificultad</label> 
                     
-                    <select>
-                        <option name="facil" id="facil">Fácil</option>
-                        <option name="intermedio" id="intermedio">Intermedio</option>
-                        <option name="dificil" id="dificil">Difícil</option>
+                    <select id="dificultad" onchange="tamano()">
+                        <option value="facil">Fácil</option>
+                        <option value="intermedio">Intermedio</option>
+                        <option value="dificil">Difícil</option>
                     </select>
                 
             </div>
