@@ -1,7 +1,9 @@
 let fila=0;
 let columna=0;
 let bombas=0;
-// let miPanel = Array(fila).fill(0).map(() => Array(columna).fill(0));
+let bombasMarcadas=0;
+let banderasMarcadas=0;
+
 
 function limpiar(){
 
@@ -51,7 +53,7 @@ function tamano(){
 
 }
 
-function definirDificultad(tamano, dificultadElegida){       
+function definirDificultad(tamano, dificultadElegida){        
     
     if (tamano=="pequeno") bombas=10;
     if (tamano=="mediano") bombas=15;
@@ -61,9 +63,9 @@ function definirDificultad(tamano, dificultadElegida){
     if (dificultadElegida=="intermedio") bombas+=Math.ceil(((1+bombas)*0.2));
     if (dificultadElegida=="dificil") bombas+=Math.ceil(((4+bombas)*0.3));
 
-
+    
     console.log("Nº de bombas: " + bombas);        
-
+    
 }
 
 function dibujarPanel(fila, columna){
@@ -76,28 +78,47 @@ function dibujarPanel(fila, columna){
 
     let juegoId=document.getElementById("juego");
 
-    for (let valor of miPanel){
+    let contenidoHTML = "";
 
-        juegoId.innerHTML+= `<div>${valor}</div>`;
-    }    
+        for (let i = 0; i < fila; i++) {
+            contenidoHTML += `<div class="bloque">`;
+            for (let j = 0; j < columna; j++) {
+                contenidoHTML += `<div class="cuadrado" id="${i},${j}" onclick="destapar(this)" oncontextmenu="clickDerecho(this); return false;"></div>`;
+            }
+            contenidoHTML += `</div>`;
+        }
+
+        // Asigna todo el contenido construido al elemento con el ID "juego"
+        juegoId.innerHTML = contenidoHTML;
+
+        for (let valor of miPanel){
+
+            console.log(valor);
+        }   
+        
     
+    // analizar();
+    console.log("Nº de bombas: " + bombas);
 }
 
 function pintarBombas(){
     
+    let bombasOriginal = bombas;
+
     while (bombas!=0){        
         
         f=aleatorio(fila);
-        c=aleatorio(columna);
+        c=aleatorio(columna);        
                 
         if (miPanel[f][c]!="B"){
 
             miPanel[f][c]="B";
             bombas--;
+            
         }                
         
     }
-    
+    bombas = bombasOriginal;
 }
 
 function aleatorio(valor){
@@ -128,6 +149,166 @@ function pintarNumeros(){
         }
     }
 }
+
+function destapar(elemento){
+
+    idValor=elemento.id;
+    posiciones=idValor.split(",");
+    /*    
+    console.log(elemento);
+    console.log(f);
+    console.log(miPanel[posiciones[0]][posiciones[1]]);
+    */
+    if (miPanel[posiciones[0]][posiciones[1]]==0){
+        elemento.innerHTML="";
+        elemento.style.background="rgba(164, 164, 164, 0.425)";
+        autoDestapar(posiciones[0],[posiciones[1]]);
+    } else if (miPanel[posiciones[0]][posiciones[1]]=="B"){
+        elemento.innerHTML="<img src='img/bomba.png' alt='B'>";
+        elemento.style.background="red";
+        terminar(true);
+    } else {
+        elemento.innerHTML=`${miPanel[posiciones[0]][posiciones[1]]}`;
+        elemento.style.background="rgba(164, 164, 164, 0.425)";
+    }
+}
+
+function autoDestapar(y, x) {
+    let visited = []; // Array para mantener un registro de las celdas visitadas
+
+    function recursiveDestapar(y, x) {
+        // Verificar si la celda (y, x) ha sido visitada antes
+        if (visited.includes(`${y},${x}`)) {
+            return; // Si ya ha sido visitada, salir de la función
+        }
+
+        visited.push(`${y},${x}`); // Marcar la celda como visitada
+
+        // Iterar sobre las celdas adyacentes
+        for (let i = Math.max(0, y - 1); i <= Math.min(fila - 1, y + 1); i++) {
+            for (let j = Math.max(0, x - 1); j <= Math.min(columna - 1, x + 1); j++) {
+                // Verificar si la celda adyacente es un 0 y no ha sido visitada
+                if (miPanel[i][j] == 0 && !(i === y && j === x)) {
+                    let adyacente = document.getElementById(`${i},${j}`);
+                    adyacente.innerHTML = "";
+                    adyacente.style.background = "rgba(164, 164, 164, 0.425)";
+                    // Llamar recursivamente a la función para destapar las celdas adyacentes
+                    recursiveDestapar(i, j);
+                } else if (!isNaN(miPanel[i][j]) && miPanel[i][j] !== 0) {
+                    let adyacente = document.getElementById(`${i},${j}`);
+                    adyacente.innerHTML = `${miPanel[i][j]}`;
+                    adyacente.style.background = "rgba(164, 164, 164, 0.425)";
+                }
+            }
+        }
+    }
+
+    // Iniciar la recursión con las coordenadas iniciales
+    recursiveDestapar(y, x);
+}
+
+function clickDerecho(elemento){
+
+    idValor=elemento.id;
+    posiciones=idValor.split(",");
+
+
+        if (elemento.innerHTML==""){
+            
+            banderasMarcadas++;
+            elemento.innerHTML="<img src='img/bandera.png' alt='B'>";
+            console.log("Bombas marcadas: " + bombasMarcadas + "Banderas marcadas: " + banderasMarcadas );
+
+                if (miPanel[posiciones[0]][posiciones[1]]=="B"){
+                    
+                    bombasMarcadas++;
+                    terminar();
+                }
+
+                console.log("Bombas marcadas: " + bombasMarcadas + "Banderas marcadas: " + banderasMarcadas );
+
+        } else if (elemento.innerHTML.includes("B") || elemento.innerHTML=="<img src='img/bandera.png' alt='B'>"){
+            
+            elemento.innerHTML="<img src='img/interrogacion.png' alt='P'>";
+
+                if (miPanel[posiciones[0]][posiciones[1]]=="B"){
+
+                    bombasMarcadas--;
+                    banderasMarcadas--;                    
+                    console.log("Bombas marcadas: " + bombasMarcadas + "Banderas marcadas: " + banderasMarcadas );                 
+                } else {
+                    banderasMarcadas--;                    
+                    console.log("Bombas marcadas: " + bombasMarcadas + "Banderas marcadas: " + banderasMarcadas );
+                }
+
+        } else {
+                
+                elemento.innerHTML="";
+                console.log("Bombas marcadas: " + bombasMarcadas + "Banderas marcadas: " + banderasMarcadas );
+        }
+}
+
+function destaparTodo(){
+    for (let i = 0; i <fila; i++) {
+        for (let j = 0; j <columna; j++) {
+
+            elemento=document.getElementById(`${i},${j}`);
+            
+            if (miPanel[i][j] == 0) {
+                elemento.innerHTML="";
+                elemento.style.background="rgba(164, 164, 164, 0.425)";
+                
+            } else if (miPanel[i][j] == "B") {
+                elemento.innerHTML="<img src='img/bomba.png' alt='B'>";
+                elemento.style.background="red";
+            } else {
+                elemento.innerHTML=`${miPanel[i][j]}`;
+                elemento.style.background="rgba(164, 164, 164, 0.425)";
+            }
+        }
+    }
+}
+
+function terminar(pum) {
+    if (bombas === bombasMarcadas || bombas === banderasMarcadas || pum === false) {
+        destaparTodo();
+        console.log("Bombas " + bombas + " Marcas " + bombasMarcadas + " Banderas " + banderasMarcadas);
+        setTimeout(function() {
+            alert("¡Has ganado! -- Eres un jefaz@");
+            window.location.reload()
+        }, 100); // Retraso de 100 milisegundos 
+    } else if (pum) {
+        destaparTodo();
+        console.log(bombas, bombasMarcadas);
+        setTimeout(function() {
+            alert("Has putoperdido");
+            window.location.reload()
+        }, 100); // Retraso de 100 milisegundos 
+        
+    } else {
+        // Código adicional si es necesario
+    }
+}
+
+
+
+
+
+
+/*
+function analizar(){
+    
+    elemento=document.getElementById("juego");    
+    elementoDiv=elemento.innerHTML;
+
+    //console.log("El elemento es: " + elemento.innerHTML);
+    
+    dato=elementoDiv.split(',');
+    //console.log(dato[8]);
+}
+*/
+
+
 
 
 
