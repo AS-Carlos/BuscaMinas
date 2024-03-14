@@ -3,6 +3,9 @@ let columna=0;
 let bombas=0;
 let bombasMarcadas=0;
 let banderasMarcadas=0;
+let intervaloCronometro;
+let cronometro=false;
+let verde=false;
 
 
 function limpiar(){
@@ -119,6 +122,9 @@ function pintarBombas(){
         
     }
     bombas = bombasOriginal;
+
+    cantidadBombas = document.getElementById("minas");    
+    cantidadBombas.innerHTML=bombas;
 }
 
 function aleatorio(valor){
@@ -151,6 +157,11 @@ function pintarNumeros(){
 }
 
 function destapar(elemento){
+
+    if (cronometro==false){
+        cronometro=true;
+        iniciarCronometro();
+    }
 
     idValor=elemento.id;
     posiciones=idValor.split(",");
@@ -246,6 +257,9 @@ function clickDerecho(elemento){
                 elemento.innerHTML="";
                 console.log("Bombas marcadas: " + bombasMarcadas + "Banderas marcadas: " + banderasMarcadas );
         }
+        
+        cantidadBanderas = document.getElementById("banderas");    
+        cantidadBanderas.innerHTML=banderasMarcadas;
 }
 
 function destaparTodo(){
@@ -260,7 +274,8 @@ function destaparTodo(){
                 
             } else if (miPanel[i][j] == "B") {
                 elemento.innerHTML="<img src='img/bomba.png' alt='B'>";
-                elemento.style.background="red";
+                if (verde){elemento.style.background="green";
+                } else {elemento.style.background="red"}
             } else {
                 elemento.innerHTML=`${miPanel[i][j]}`;
                 elemento.style.background="rgba(164, 164, 164, 0.425)";
@@ -271,7 +286,9 @@ function destaparTodo(){
 
 function terminar(pum) {
     if (bombas === bombasMarcadas || bombas === banderasMarcadas || pum === false) {
+        verde=true;
         destaparTodo();
+        detenerCronometro()
         console.log("Bombas " + bombas + " Marcas " + bombasMarcadas + " Banderas " + banderasMarcadas);
         setTimeout(function() {
             alert("¡Has ganado! -- Eres un jefaz@");
@@ -279,8 +296,9 @@ function terminar(pum) {
         }, 100); // Retraso de 100 milisegundos 
     } else if (pum) {
         destaparTodo();
+        detenerCronometro()
         console.log(bombas, bombasMarcadas);
-        setTimeout(function() {
+        setTimeout(() => {
             alert("Has putoperdido");
             window.location.reload()
         }, 100); // Retraso de 100 milisegundos 
@@ -290,6 +308,38 @@ function terminar(pum) {
     }
 }
 
+
+
+function iniciarCronometro() {
+    let tiempoInicio = Date.now();
+    
+    function actualizarCronometro() {
+        let tiempoTranscurrido = Date.now() - tiempoInicio;
+        let milisegundos = tiempoTranscurrido % 1000;
+        let segundos = Math.floor(tiempoTranscurrido / 1000) % 60;
+        let minutos = Math.floor(tiempoTranscurrido / (1000 * 60)) % 60;
+        let horas = Math.floor(tiempoTranscurrido / (1000 * 60 * 60));
+
+        // Formatear el tiempo en HH:MM:SS:mmm
+        let tiempoFormateado = pad(horas, 2) + ":" + pad(minutos, 2) + ":" + pad(segundos, 2) + ":" + pad(milisegundos, 3);
+        
+        // Actualizar el elemento HTML con el tiempo
+        document.getElementById("cronometro").textContent = tiempoFormateado;
+    }
+    
+    // Iniciar el intervalo del cronómetro y almacenar su ID en la variable intervaloCronometro
+    intervaloCronometro = setInterval(actualizarCronometro, 16);
+}
+
+function detenerCronometro() {
+    // Detener el intervalo del cronómetro utilizando su ID almacenado en intervaloCronometro
+    clearInterval(intervaloCronometro);
+}
+
+// Función auxiliar para agregar ceros a la izquierda si es necesario
+function pad(numero, longitud) {
+    return String(numero).padStart(longitud, "0");
+}
 
 
 

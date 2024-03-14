@@ -1,5 +1,8 @@
 body{
     font-size: 2em;
+    background-color: #1f90a6;
+    padding: 15px;
+    
 }
 
 header{
@@ -8,7 +11,10 @@ header{
 
 .seccion-gen{
     display: flex;
-    
+    margin-top: 40px;    
+    padding: auto;
+    width: auto; /* Porcentaje de la anchura deseada */
+    height: auto; /* Inicializamos la altura en 0 */
 }
 
 /* LEFT SIDE */
@@ -17,50 +23,77 @@ header{
     display: flex;
     flex-direction: column;  
     flex-grow: 1;      
-
+    
 }
 
 .panel-izq{
     text-align: center;
-    display: flex;
-    flex-direction: row;    
-    padding-bottom: 20px;
-
+    display: flex;            
+    padding: 10px;
+    margin: 10px auto;
+    
 }
 
 .panel-izq > div {
-    margin: 0 10px;
+    padding: 10px;
+    margin: 30px;       
+    border: 2px solid;
+    background-color: #a0c6ce;
 }
 
+div.panel-izq{
+    text-align: center;
+}
 
 
 
 /* RIGHT SIDE */
 
-.seccion-der{
-    display: flex;
-    flex-direction: column; 
-    border-left: 2px solid #000;    
-
+.seccion-der{     
+    border: 2px solid #000;    
+    background-color: rgb(190, 200, 127);
+    
 }
 
-.panel-der{
-    flex-direction: row;
-    text-align: center;
-    margin: 5px;
+.panel-der {
+    display: grid; /* Utilizar el sistema de cuadrícula */
+    grid-template-columns: 1fr 1fr 1fr; /* Crear tres columnas de igual tamaño */
+    grid-gap: 10px; /* Espacio entre las columnas */
+    padding: 10px;
+    margin: 10px auto;
 }
 
-.panel-der-op{
-    flex-direction: row;
-    text-align: center;
-    margin: 5px;
+.panel-der-div {
+    padding: 10px;
+    border: 2px solid;
+    background-color: #a0c6ce;    
 }
 
 .panel-der-tabla{
+    flex-direction: row;
     text-align: center;
-    margin: 20px;
+    padding: 10px;
+    margin: 10px; 
+        
 }
 
+.tabla{
+    background-color: #a0c6ce; 
+    width: 100%; /* El botón ocupará todo el ancho del contenedor */
+    height: 100%; 
+    border: 1px solid #000;     
+       
+}
+
+.tabla th {
+    padding: 10px; /* Ajusta el valor según la separación deseada */
+    border: 2px solid #000;
+    
+}
+
+.tabla td {
+    border: 1px solid #000;
+}
 
 .panel-izq-juego{
     max-width: auto; /* Ajusta el ancho máximo */
@@ -71,7 +104,7 @@ header{
 
 .bloque{
     display: flex;
-    flex-direction: row ;   
+    flex-direction: row ;       
     
 }
 
@@ -79,12 +112,21 @@ header{
     width: 50px;
     height: 50px;
     border: 1px solid #000;
-
-    background-color: rgb(164, 164, 164);
-    
+    background-color: rgb(164, 164, 164);    
     cursor: pointer;
     text-align: center; /* Centrado horizontal del texto dentro del cuadrado */
     display: flex;
     align-items: center; /* Centrado vertical del texto dentro del cuadrado */
     justify-content: center; /* Centrado horizontal del texto dentro del cuadrado */
   }
+
+
+.btn-recargar {    
+    cursor: pointer;
+    background-color: #6f6e6e98;    
+    width: 100%; /* El botón ocupará todo el ancho del contenedor */
+    height: 100%;     
+    
+}
+
+    

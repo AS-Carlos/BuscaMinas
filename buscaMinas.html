@@ -14,16 +14,16 @@
         <section class="seccion-izq">
             <div class="panel-izq">
                 <div>
-                    <label>Usuario</label>  <br>
-                    <input type="text" id="usuario">  
+                    <label>Minas</label> <br>
+                    <span type="" id="minas"></span>  
                 </div>
                 <div>
-                    <label>Minas</label> <br>
-                    <input type="number" id="minas"> 
+                    <label>Banderas</label> <br>
+                    <span type="" id="banderas"></span>  
                 </div>
                 <div>
                     <label>Tiempo</label> <br>
-                    <span type="" id="tiempo">0</span> 
+                    <span type="" id="cronometro"></span> 
                 </div>
             </div>
             
@@ -35,29 +35,30 @@
         <section class="seccion-der">
             <div class="panel-der">
                 
-                    <label for="tamano">Tamaño</label> 
-                    
-                    <select id="tamano" onchange="tamano()">
-                        <option value="pequeno">Pequeño</option>
-                        <option value="mediano">Mediano</option>
-                        <option value="grande">Grande</option>
-                    </select>
-                
-                    <label for="dificultad">Dificultad</label> 
-                    
-                    <select id="dificultad" onchange="tamano()">
-                        <option value="facil">Fácil</option>
-                        <option value="intermedio">Intermedio</option>
-                        <option value="dificil">Difícil</option>
-                    </select>
-                
-            </div>
-            <div class="panel-der-op">
-                <button>Sonido</button>
-                <button>Reset</button>
-            </div>
+                <div class="panel-der-div">
+                        <label for="tamano">Tamaño</label> 
+                        <br>
+                        <select id="tamano" onchange="tamano()">
+                            <option value="pequeno">Pequeño</option>
+                            <option value="mediano">Mediano</option>
+                            <option value="grande">Grande</option>
+                        </select>
+                </div>
+                <div class="panel-der-div">
+                        <label for="dificultad">Dificultad</label> 
+                        <br>
+                        <select id="dificultad" onchange="tamano()">
+                            <option value="facil">Fácil</option>
+                            <option value="intermedio">Intermedio</option>
+                            <option value="dificil">Difícil</option>
+                        </select>
+                </div> 
+                <div clas="panel-der-div">
+                    <button class="btn-recargar" onclick="window.location.reload()"><img src="./img/recargar.png"" alt="Texto alternativo para la imagen"></button>
+                </div>       
+            </div>            
             <div class="panel-der-tabla">
-                <table>
+                <table class="tabla">
                     <tr>
                         <th>Top</th>
                         <th>Usuario</th>
@@ -65,8 +66,8 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>Nombre</td>
-                        <td>10:10</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>2</td>
