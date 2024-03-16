@@ -5,9 +5,16 @@ body{
     
 }
 
-header{
-    text-align: center;
+header {
+    text-align: center;    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    color: #000000;
+    padding: 20px;    
+    
 }
+
 
 .seccion-gen{
     display: flex;
@@ -129,4 +136,17 @@ div.panel-izq{
     
 }
 
+.estilo-select {
+    appearance: none;
+    text-align: center;    
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>') no-repeat right center;
+    background-color: #6f6e6e66;
+    padding: 8px 32px 8px 8px; 
+    border: 1px solid #110101;
+    border-radius: 4px;
+    font-size: 16px; 
+    margin: 0 auto; 
+    display: block; 
+    
+}
     

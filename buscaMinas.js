@@ -6,6 +6,11 @@ let banderasMarcadas=0;
 let intervaloCronometro;
 let cronometro=false;
 let verde=false;
+let tiempoHecho;
+let topScore = [];
+
+
+
 
 
 function limpiar(){
@@ -254,7 +259,9 @@ function clickDerecho(elemento){
 
         } else {
                 
-                elemento.innerHTML="";
+                if (miPanel[posiciones[0]][posiciones[1]]>=0 ||miPanel[posiciones[0]][posiciones[1]]=="B"){
+                    elemento.innerHTML="";
+                }
                 console.log("Bombas marcadas: " + bombasMarcadas + "Banderas marcadas: " + banderasMarcadas );
         }
         
@@ -285,27 +292,34 @@ function destaparTodo(){
 }
 
 function terminar(pum) {
+
+    tiempoHecho= document.getElementById("cronometro").textContent;
+    console.log(tiempoHecho);
+
     if (bombas === bombasMarcadas || bombas === banderasMarcadas || pum === false) {
         verde=true;
         destaparTodo();
         detenerCronometro()
         console.log("Bombas " + bombas + " Marcas " + bombasMarcadas + " Banderas " + banderasMarcadas);
         setTimeout(function() {
-            alert("¡Has ganado! -- Eres un jefaz@");
-            window.location.reload()
+            nombre=prompt("¡Has ganado!  \nEres un jefaz@");
+            gestionTop(nombre, tiempoHecho);
+            //window.location.reload()
         }, 100); // Retraso de 100 milisegundos 
     } else if (pum) {
         destaparTodo();
         detenerCronometro()
         console.log(bombas, bombasMarcadas);
         setTimeout(() => {
-            alert("Has putoperdido");
+            alert("PUUUUUUUUUUUUUM \n¡¡Te has convertido en una palomita!!");
             window.location.reload()
         }, 100); // Retraso de 100 milisegundos 
         
     } else {
         // Código adicional si es necesario
     }
+
+    
 }
 
 
@@ -341,10 +355,6 @@ function pad(numero, longitud) {
     return String(numero).padStart(longitud, "0");
 }
 
-
-
-
-
 /*
 function analizar(){
     
@@ -359,6 +369,33 @@ function analizar(){
 */
 
 
+function gestionTop(nombre, tiempo) {
+    // Crear un objeto con el nombre y el tiempo    
 
+    let jugador = {
+        nombre: nombre,
+        tiempo: tiempo
+    };
+
+    // Agregar el objeto al principio del array
+    topScore.unshift(jugador);
+
+    // Ordenar el array por tiempo de menor a mayor
+    topScore.sort((a, b) => a.tiempo - b.tiempo);
+
+    // Si el array top tiene más de 10 elementos, eliminar el último elemento
+    if (topScore.length > 10) {
+        topScore.pop();
+    }    
+
+    topScore.forEach((score, index) => {
+        let nombreCell = document.getElementById(`top-nombre-${index + 1}`);
+        let tiempoCell = document.getElementById(`top-tiempo-${index + 1}`);
+    
+        nombreCell.textContent = score.nombre;
+        tiempoCell.textContent = score.tiempo;
+    });
+    console.log(topScore);
+}
 
 
