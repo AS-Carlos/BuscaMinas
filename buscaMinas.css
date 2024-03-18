@@ -1,6 +1,10 @@
 body{
     font-size: 2em;
+    background-color: #cdcbaeb7;
+    /* 
+    background-color: #cbe6ebe8; 
     background-color: #1f90a6;
+    */
     padding: 15px;
     
 }
@@ -56,10 +60,11 @@ div.panel-izq{
 
 /* RIGHT SIDE */
 
-.seccion-der{     
-    border: 2px solid #000;    
-    background-color: rgb(190, 200, 127);
-    
+.seccion-der {
+    border: 2px solid #000;
+    background-color: rgb(190, 200, 127);    
+    width: 500px; /* Tamaño fijo de la sección derecha */
+    height: 670px;
 }
 
 .panel-der {
