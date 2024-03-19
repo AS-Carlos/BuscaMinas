@@ -25,12 +25,14 @@ No se requiere ninguna instalación especial para ejecutar este juego. Solo abre
 - `buscaMinas.html`: Archivo principal que contiene la estructura HTML del juego.
 - `buscaMinas.css`: Archivo CSS que define los estilos visuales del juego.
 - `buscaMinas.js`: Archivo JavaScript que contiene la lógica del juego.
-- `img/`: Carpeta que contiene las imágenes utilizadas en el juego.
+- `img/`: Carpeta que contiene las imágenes (https://www.flaticon.es/) utilizadas en el juego. 
 
 ## Contribución
 
 Si encuentras algún error o tienes alguna sugerencia de mejora, no dudes en abrir un problema o enviar una solicitud de extracción. ¡Todas las contribuciones son bienvenidas!
 
 ## Licencia
+
+Este proyecto está licenciado bajo los términos de la [Licencia MIT](https://opensource.org/licenses/MIT).
 
 
